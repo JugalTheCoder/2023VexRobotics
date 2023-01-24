@@ -15,9 +15,8 @@
 // leftBack             motor         2               
 // rightFront           motor         3               
 // rightBack            motor         4               
-// lifter               motor         5               
-// fourBarLift          motor         7               
-// clamp                motor         8               
+// intake               motor         5               
+// slapper              motor         6               
 // ---- END VEXCODE CONFIGURED DEVICES ----
 
 //
@@ -107,10 +106,10 @@ void autonomous(void) {
   rightFront.setPosition(0 , degrees);
   rightBack.setPosition(0 , degrees);
 
-  leftFront.startRotateFor(vex::directionType::fwd , 1080, vex::rotationUnits::deg);
-  leftBack.startRotateFor(vex::directionType::fwd , 1080, vex::rotationUnits::deg);
-  rightFront.startRotateFor(vex::directionType::fwd , 1080, vex::rotationUnits::deg);
-  rightBack.rotateFor(vex::directionType::fwd , 1080, vex::rotationUnits::deg);
+  leftFront.startRotateFor(vex::directionType::rev , 1080, vex::rotationUnits::deg);
+  leftBack.startRotateFor(vex::directionType::rev , 1080, vex::rotationUnits::deg);
+  rightFront.startRotateFor(vex::directionType::rev , 1080, vex::rotationUnits::deg);
+  rightBack.rotateFor(vex::directionType::rev , 1080, vex::rotationUnits::deg);
 
 
   //Turn right
@@ -123,9 +122,9 @@ void autonomous(void) {
   
   //lift moves down
   
-  lifter.setPosition(0, degrees);
+  // lifter.setPosition(0, degrees);
 
-  lifter.spinFor(vex::directionType::fwd ,90 ,vex::rotationUnits::deg);
+  // lifter.spinFor(vex::directionType::fwd ,90 ,vex::rotationUnits::deg);
 
   
   
@@ -138,7 +137,7 @@ void autonomous(void) {
 
   //lift moves up
 
-  lifter.spinFor(vex::directionType::rev ,90 ,vex::rotationUnits::deg);
+  // lifter.spinFor(vex::directionType::rev ,90 ,vex::rotationUnits::deg);
 
   
 
@@ -208,41 +207,19 @@ void usercontrol(void) {
 
     if(Controller1.ButtonL1.pressing())
     {
-      lifter.spin(vex::directionType::rev, 75, vex::velocityUnits::pct);
+      intake.spin(vex::directionType::fwd, 75, vex::velocityUnits::pct);
       
 
 
 
     }
-    else if(Controller1.ButtonR1.pressing())
-    {
-      lifter.spin(vex::directionType::fwd, 75, vex::velocityUnits::pct);
-      
-
-
-    }
-    else if(Controller1.ButtonA.pressing())
-    {
-      clamp.spin(vex::directionType::rev, 50, vex::velocityUnits::pct);
-    }
-
     else if(Controller1.ButtonL2.pressing())
     {
-      fourBarLift.spin(vex::directionType::rev, 50, vex::velocityUnits::pct);
-    }
-
-    else if(Controller1.ButtonR2.pressing())
-    {
-      fourBarLift.spin(vex::directionType::fwd, 50, vex::velocityUnits::pct);
-
+      intake.spin(vex::directionType::rev, 75, vex::velocityUnits::pct);
     }
     else
     {
-      lifter.stop(vex::brakeType::hold);
-      fourBarLift.stop(vex::brakeType::hold);
-      clamp.stop(vex::brakeType::hold);
-      
-
+      intake.stop(vex::brakeType::hold);
     }
     wait(20, msec); // Sleep the task for a short amount of time to
                     // prevent wasted resources.
